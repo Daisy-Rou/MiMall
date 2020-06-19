@@ -17,18 +17,7 @@ export default {
     }
   },
   mounted(){
-    
-    //let url = 'https://www.imooc.com/activity/servicetime'
-    //代理 跨域
-    let url = '/activity/servicetime'
-    //CORS 跨域
-    // axios.get(url).then(() => {
-    // })
-    //JSONP 跨域
-    jsonp(url, (err, res) => {
-      let result = res;
-      this.data = result
-    })
+   
   }
 }
 </script>
