@@ -4,11 +4,12 @@ module.exports = {
         host:'localhost',
         port: 8080,
         proxy:{
-            '/activity': {
+            //添加接口代理
+            '/api': {
                 target:'https://www.imooc.com',
-                changeOrigin:false,
+                changeOrigin:true,
                 pathRewrite: {
-                    '/activity':'/activity'
+                    '/api':''
                 }
             }
         }
