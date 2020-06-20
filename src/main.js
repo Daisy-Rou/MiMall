@@ -3,15 +3,15 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
-import env from './env';
+// import env from './env';
 //插件放在上面组件放在下面
 
 //根据前端的 跨域方式(cors jsonp 代理) 做调整 /a/b -> api/a/b -> /a/b
-axios.defaults.baseURL = '/api'
+// axios.defaults.baseURL = '/api'
 //超时设置
 axios.defaults.timeout = 8000
 //根据 环境变量 获取不同的请求地址
-axios.defaults.baseURL = env.baseURL
+// axios.defaults.baseURL = env.baseURL
 
 //拦截器 接口错误拦截
 axios.interceptors.response.use(function(response) {
