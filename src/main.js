@@ -6,8 +6,16 @@ import App from './App.vue'
 // import env from './env';
 //插件放在上面组件放在下面
 
+//定义 mock 开关
+const mock = true
+if(mock) {
+  //import 是预编译加载 在编译时这个文件就会被加载进来->写入到内存当中
+  //require 是执行时才加载 如果 mock 是 false 代码不会被加载 
+  require('./mock/api')
+}
 //根据前端的 跨域方式(cors jsonp 代理) 做调整 /a/b -> api/a/b -> /a/b
-// axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = '/api'
+//axios.defaults.baseURL = 'https://easy-mock.com/mock/5eeddaaa7d4fd8781bbdc3f8/example'
 //超时设置
 axios.defaults.timeout = 8000
 //根据 环境变量 获取不同的请求地址

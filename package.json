@@ -24,11 +24,12 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "jsonp": "^0.2.1",
+    "mockjs": "^1.1.0",
     "nocookie": "^1.1.4",
-    "vue-de-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "vue-awesome-swiper": "^4.1.1",
     "vue-axios": "^2.1.5",
+    "vue-de-sass": "^4.14.1",
     "vue-lazyload": "^1.3.3",
     "vue-template-compiler": "^2.6.11"
   },
