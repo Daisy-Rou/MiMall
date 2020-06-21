@@ -6,7 +6,7 @@ module.exports = {
         proxy:{
             //添加接口代理
             '/api': {
-                target:'https://www.imooc.com',
+                target:'http://mall-pre.springboot.cn',
                 changeOrigin:true,
                 pathRewrite: {
                     '/api':''
