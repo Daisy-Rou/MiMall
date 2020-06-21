@@ -22,6 +22,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+// scoped 表示 只有当前组件 会被渲染
     .footer {
         height: 234px;
         border-top: 4px solid #ff6600;

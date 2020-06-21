@@ -208,8 +208,8 @@ export default {
             this.axios.get('/products', {
                 //get请求传参方式 使用 params 与 post 不同
                 params: {
-                    categoryId:'100012'
-                    // pageSize: 6
+                    categoryId:'100012',
+                    pageSize: 6
                 }
             }).then((res) => {
                 //当获取的长度大于 6 时截取 6条数据
@@ -355,6 +355,7 @@ export default {
                            box-shadow: 0px 7px 6px 0px rgba(0,0,0,0.11);
                            z-index: 10;
                            transition: all .5s;
+                           background-color: #ffffff;
                            .product {
                                position: relative;
                                float: left;
