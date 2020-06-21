@@ -343,7 +343,7 @@ export default {
                        }
                        .children {
                            position: absolute;
-                           top: 142px;
+                        //    top: 142px;
                            left: 0;
                            width: 1226px;
                            height: 0px;
