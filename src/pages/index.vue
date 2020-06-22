@@ -135,8 +135,34 @@
                 </a>
             </div>
             <!-- 商品列表 -->
-            <div class="product-box"></div>
-        </div>
+            <div class="product-box">
+                <div class="container">
+                    <h2>手机</h2>
+                    <div class="wrapper">
+                        <div class="banner-left">
+                            <a href="/#/product/35">
+                                <img src="/imgs/mix-alpha.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="list-box">
+                            <div class="list" v-for="(item, index) in phoneList" :key="index">
+                                <div class="item" v-for="(arr, index) in item" :key="index">
+                                    <span>新品</span>
+                                    <div class="item-img">
+                                        <img src="" alt="">
+                                    </div>
+                                    <div class="item-info">
+                                        <h3>小米9</h3>
+                                        <p>骁龙855,索尼4800万超广角微距</p>
+                                        <p class="price">2999元</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
         <service-bar></service-bar>
     </div>
 </template>
@@ -1294,7 +1320,8 @@
                         id: 47,
                         img: '/imgs/ads/ads-4.jpg'
                     }
-                ]
+                ],
+                phoneList: [[1,1,1,1],[1,1,1,1]]
             }
         }
     }
@@ -1393,6 +1420,77 @@
         }
         .banner {
             margin-bottom: 50px;
+        }
+        .product-box {
+            background-color: #f5f5f5;
+            padding: 30px 0 50px;
+            h2 {
+                font-size: 22px;
+                height: 21px;
+                line-height: 21px;
+                color: #333333;
+                margin-bottom: 20px;
+            }
+            .wrapper {
+                display: flex;
+                .banner-left {
+                    margin-right: 16px;
+                    img {
+                        width: 224px;
+                        height: 619px;
+                    }
+                }
+                .list-box {
+                    .list {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 986px;
+                        margin-bottom: 14px;
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                        .item {
+                            width: 236px;
+                            height: 302px;
+                            background-color: #ffffff;
+                            text-align: center;
+                            span {
+
+                            }
+                            .item-img {
+                               img {
+                                height: 195px;
+                               }
+                            }
+                            .item-info {
+                                h3 {
+                                    color: #333333;
+                                    font-size: 14px;
+                                    line-height: 14px;
+                                    font-weight: bold;
+                                }
+                                p {
+                                    color: #999999;
+                                    line-height: 13px;
+                                    margin: 6px auto 13px;
+                                }
+                                .price {
+                                    color: #f20a0a;
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                    &:after {
+                                        @include bgImg(22px, 22px, '/imgs/icon-cart-hover.png');
+                                        content: '';
+                                        margin-left: 5px;
+                                        vertical-align: middle;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 </style>
