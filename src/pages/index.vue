@@ -147,14 +147,14 @@
                         <div class="list-box">
                             <div class="list" v-for="(item, index) in phoneList" :key="index">
                                 <div class="item" v-for="(arr, index) in item" :key="index">
-                                    <span>新品</span>
+                                    <span :class="{'new-pro':index % 2 == 0}">新品</span>
                                     <div class="item-img">
-                                        <img src="" alt="">
+                                        <img :src="arr.mainImage" alt="">
                                     </div>
                                     <div class="item-info">
-                                        <h3>小米9</h3>
-                                        <p>骁龙855,索尼4800万超广角微距</p>
-                                        <p class="price">2999元</p>
+                                        <h3>{{arr.name}}</h3>
+                                        <p>{{arr.subtitle}}</p>
+                                        <p class="price">{{arr.price | currency}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -1321,7 +1321,28 @@
                         img: '/imgs/ads/ads-4.jpg'
                     }
                 ],
-                phoneList: [[1,1,1,1],[1,1,1,1]]
+                phoneList: []
+            }
+        },
+        filters: {
+            currency(val) {
+                if(!val) return '0.00'
+                return '￥' + val.toFixed(2) + '元';
+            }
+        },
+        mounted() {
+            this.init();
+        },
+        methods: {
+            init() {
+                this.axios.get('/products', {
+                    params: {
+                        categoryId: 100012,
+                        pageSize:8
+                    }
+                }).then((res) => {
+                    this.phoneList = [res.list.slice(0,4), res.list.slice(4,8)]
+                })
             }
         }
     }
@@ -1455,11 +1476,23 @@
                             background-color: #ffffff;
                             text-align: center;
                             span {
-
+                                display: inline-block;
+                                width: 67px;
+                                height: 24px;
+                                font-size: 14px;
+                                line-height: 24px;
+                                color: #ffffff;
+                                &.new-pro {
+                                background-color: #7ecf68;
+                                }
+                                &.kill-pro {
+                                background-color: #e82626;
+                                }
                             }
                             .item-img {
                                img {
                                 height: 195px;
+                                width: 100%;
                                }
                             }
                             .item-info {
