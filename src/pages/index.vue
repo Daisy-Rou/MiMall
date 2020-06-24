@@ -154,7 +154,9 @@
                                     <div class="item-info">
                                         <h3>{{arr.name}}</h3>
                                         <p>{{arr.subtitle}}</p>
-                                        <p class="price">{{arr.price | currency}}</p>
+                                        <p class="price" @click="addCart(arr.id)">
+                                            {{arr.price | currency}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -164,8 +166,14 @@
             </div>
         </div>    
         <service-bar></service-bar>
-        <modal title="友情提示" sureText="查看购物车" 
-            btnType="1" modalType="middle" :showModal="true">
+        <modal 
+            title="友情提示" 
+            sureText="查看购物车" 
+            btnType="1" 
+            modalType="middle" 
+            :showModal="showModal"
+            @submit="goToCart"
+            @cancel="showModal = false">
             <!-- 插槽 -->
             <template v-slot:body>
                 <p>商品添加成功！！！</p>
@@ -1330,7 +1338,8 @@
                         img: '/imgs/ads/ads-4.jpg'
                     }
                 ],
-                phoneList: []
+                phoneList: [],
+                showModal: false
             }
         },
         filters: {
@@ -1353,6 +1362,20 @@
                     res.list = res.list.slice(6,14);
                     this.phoneList = [res.list.slice(0,4), res.list.slice(4,8)]
                 })
+            },
+            addCart() {
+                this.showModal = true;
+                // this.axios.post('/carts', {
+                //     productId: id,
+                //     selected: true
+                // }).then(() => {
+
+                // }).catch(() => {
+                //     this.showModal = true
+                // })
+            },
+            goToCart() {
+                this.$router.push('/cart/')
             }
         }
     }
