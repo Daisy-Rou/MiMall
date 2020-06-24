@@ -27,6 +27,7 @@
 .btn-group{
   .btn{
     margin-right:20px;
+    // 最后一个不需要margin值
     &:last-child{
       margin-right:0;
     }

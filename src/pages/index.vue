@@ -164,10 +164,18 @@
             </div>
         </div>    
         <service-bar></service-bar>
+        <modal title="友情提示" sureText="查看购物车" 
+            btnType="1" modalType="middle" :showModal="true">
+            <!-- 插槽 -->
+            <template v-slot:body>
+                <p>商品添加成功！！！</p>
+            </template>
+        </modal>
     </div>
 </template>
 <script>
     import ServiceBar from './../components/ServiceBar'
+    import Modal from './../components/Modal'
     //运用结构语法 不需要导入整个
     import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
     //会自动到 node_module模块去找 css样式
@@ -177,7 +185,8 @@
         components:{
             Swiper,
             SwiperSlide,
-            ServiceBar
+            ServiceBar,
+            Modal
         },
         data() {
             return {
@@ -1338,9 +1347,10 @@
                 this.axios.get('/products', {
                     params: {
                         categoryId: 100012,
-                        pageSize:8
+                        pageSize:14
                     }
                 }).then((res) => {
+                    res.list = res.list.slice(6,14);
                     this.phoneList = [res.list.slice(0,4), res.list.slice(4,8)]
                 })
             }
@@ -1451,6 +1461,7 @@
                 line-height: 21px;
                 color: #333333;
                 margin-bottom: 20px;
+                margin-left: 5px;
             }
             .wrapper {
                 display: flex;
