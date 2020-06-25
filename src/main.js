@@ -27,6 +27,8 @@ axios.defaults.timeout = 8000
 axios.interceptors.response.use(function(response) {
   //获取接口返回的值
   let res = response.data
+  //hash路由
+  let path = location.hash
   //状态码等于 0 表示成功
   if(res.status == 0){
     //我们接口返回的值
@@ -34,7 +36,9 @@ axios.interceptors.response.use(function(response) {
     //公司状态码能够按照业务划分 订单异常：2001 订单不存在：2002 订单已过期：2003  核心代码：1001..
     //状态码等于 0 表示未登录
   } else if(res.status == 10){
+    if(path != '#/index') {
     window.location.href = '/#/login'
+    }
     //其他错误情况
   } else {
     alert(res.msg)
