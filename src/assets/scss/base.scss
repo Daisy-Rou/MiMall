@@ -1,5 +1,6 @@
 // @import './mixin.scss';
 .container{
+  position: relative;
   width:1226px;
   margin-right:auto;
   margin-left:auto;
@@ -10,4 +11,9 @@ a {
     height: 100%;
     
   }
+}
+input {
+  outline: none;
+  box-sizing: border-box;
+  font-size: 14px;
 }

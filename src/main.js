@@ -3,12 +3,13 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
+import VueCookie from 'vue-cookie'
 import App from './App.vue'
 // import env from './env';
 //插件放在上面组件放在下面
 
 //定义 mock 开关
-const mock = true
+const mock = false
 if(mock) {
   //import 是预编译加载 在编译时这个文件就会被加载进来->写入到内存当中
   //require 是执行时才加载 如果 mock 是 false 代码不会被加载 
@@ -37,11 +38,13 @@ axios.interceptors.response.use(function(response) {
     //其他错误情况
   } else {
     alert(res.msg)
+    return Promise.reject(res)
   }
 })
 
 //通过vue-axios 挂在 axios
 Vue.use(VueAxios, axios)
+Vue.use(VueCookie)
 Vue.use(VueLazyLoad, {
   loading: '/imgs/loading-svg/loading-bars.svg'
 })
