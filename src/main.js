@@ -4,6 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
+import store from './store'
 import App from './App.vue'
 // import env from './env';
 //插件放在上面组件放在下面
@@ -55,6 +56,7 @@ Vue.use(VueLazyLoad, {
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')
