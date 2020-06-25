@@ -178,7 +178,7 @@
     </div>
 </template>
 <script>
-import {mapState} from 'vuex'
+// import {mapState} from 'vuex'
 export default {
     name:'nav-header',
     //交互
@@ -191,13 +191,13 @@ export default {
     },
     //解决延迟
     computed: {
-        // username() {
-        //     return this.$store.state.username
-        // },
-        // cartCount() {
-        //     return this.$store.state.cartCount
-        // }
-        ...mapState(['username', 'cartCount'])
+        username() {
+            return this.$store.state.username
+        },
+        cartCount() {
+            return this.$store.state.cartCount
+        }
+        // ...mapState(['username', 'cartCount'])
     },
     //过滤器
     filters: {
