@@ -16,7 +16,7 @@
                     <!-- v-on 事件绑定 也可以简写 @click -->
                     <a href="javascript:;" class="my-cart" @click="goToCart">
                         <span class="icon-cart"></span>
-                    购物车</a>
+                    购物车({{cartCount}})</a>
                 </div>
             </div>
         </div>
@@ -178,14 +178,26 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
     name:'nav-header',
     //交互
     data() {
         return {
             phoneList: [],
-            username: ''
+            //共享
+            // username: this.$store.state.username
         }
+    },
+    //解决延迟
+    computed: {
+        // username() {
+        //     return this.$store.state.username
+        // },
+        // cartCount() {
+        //     return this.$store.state.cartCount
+        // }
+        ...mapState(['username', 'cartCount'])
     },
     //过滤器
     filters: {

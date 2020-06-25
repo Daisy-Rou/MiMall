@@ -8,7 +8,7 @@ const state = {
     //登录用户名
     username: '', 
     //购物车商品数量
-    cartCount: 0
+    cartCount: -1
 }
 export default new Vuex.Store({
     state,

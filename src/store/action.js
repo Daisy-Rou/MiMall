@@ -1,4 +1,9 @@
-//商城 Vuex-actions
+//商城 Vuex-actions 传输
 export default {
-    
+    saveUserName(context, username) {
+        context.commit('saveUserName', username)
+    },
+    saveCartCount(context, count) {
+        context.commit('saveCartCount', count)
+    }
 }
