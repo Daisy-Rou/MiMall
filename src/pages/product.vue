@@ -1,14 +1,14 @@
 <template>
     <div class="product">
-    <product-param title="小米9">
+    <product-param :title="product.name">
       <template v-slot:buy>
-        <button class="btn">立即购买</button>
+        <button class="btn" @click="buy">立即购买</button>
       </template>
     </product-param>
     <div class="content">
       <div class="item-bg">
-        <h2>小米9</h2>
-        <h3>小米9 战斗天使</h3>
+        <h2>{{product.name}}</h2>
+        <h3>{{product.subtitle}}</h3>
         <p>
           <a href="" id="">全球首款双频 GP</a>
           <span>|</span>
@@ -19,7 +19,7 @@
           <a href="" id="">红外人脸识别</a>
         </p>
         <div class="price">
-          <span>￥<em>2599</em></span>
+          <span>￥<em>{{product.price}}</em></span>
         </div>
       </div>
       <div class="item-bg-2"></div>
@@ -40,10 +40,12 @@
         <h2>60帧超慢动作摄影<br/>慢慢回味每一瞬间的精彩</h2>
         <p>后置960帧电影般超慢动作视频，将眨眼间的美妙展现得淋漓尽致！<br/>更能AI 精准分析视频内容，15个场景智能匹配背景音效。</p>
         <div class="video-bg" @click="showSlide='slideDown'"></div>
-        <div class="video-box">
-            <div class="overlay" v-if="showSlide=='slideDown'"></div>
+        <div class="video-box" v-show="showSlide">
+            <!-- //视频遮罩 -->
+            <div class="overlay" ></div>
             <div class="video" :class="showSlide">
-                <span class="icon-close" @click="showSlide='slideUp'"></span>
+                <span class="icon-close" @click="closeVideo"></span>
+                <!-- muted让音频静音输出 辅助 自动播放 autoplay -->
                 <video src="/imgs/product/video.mp4" muted autoplay controls="controls"></video>
             </div>
         </div>
@@ -78,14 +80,27 @@
             }
         },
         mounted(){
+            //初始化
             this.getProductInfo();
         },
          methods:{
             getProductInfo(){
+                //获取路由参数 路由跳转 this.$router.push()
                 let id = this.$route.params.id;
-                this.axios.get(`/products/${id}`).then((res)=>{
-                this.product = res;
+                //通过商品id调取后台接口
+                this.axios.get(`/products/${id}`).then((res) => {
+                    this.product = res;
                 })
+            },
+            buy() {
+                let id = this.$route.params.id;
+                this.$router.push(`/detail/${id}`)
+            },
+            closeVideo() {
+                this.showSlide = 'slideUp'
+                setTimeout(() => {
+                this.showSlide = ''
+                }, 600)
             }
         } 
     }
@@ -198,6 +213,7 @@
             }
           }
           .video{
+            //相对于浏览器窗口进行定位 absolute 相对整个html文档进行定位
             position:fixed;
             top:-50%;
             left:50%;
