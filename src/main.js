@@ -38,8 +38,9 @@ axios.interceptors.response.use(function(response) {
     //状态码等于 0 表示未登录
   } else if(res.status == 10){
     if(path != '#/index') {
-    window.location.href = '/#/login'
+      window.location.href = '/#/login'
     }
+    return Promise.reject(res)
     //其他错误情况
   } else {
     alert(res.msg)
