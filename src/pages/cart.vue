@@ -20,22 +20,23 @@
                     <ul class="cart-item-list">
                         <li class="cart-item" v-for="(item, index) in list" :key="index">
                             <div class="item-check">
-                                <span class="checkbox" :class="{'checked':item.productSelected}"></span>
-                                </div>
-                                <div class="item-name">
+                                <span class="checkbox" :class="{'checked':item.productSelected}"
+                                @click="updateCart(item)"></span>
+                            </div>
+                            <div class="item-name">
                                 <img v-lazy="item.productMainImage" alt="">
                                 <span>{{item.productName + ' , ' + item.productSubtitle}}</span>
-                                </div>
-                                <div class="item-price">{{item.productPrice}}元</div>
-                                <div class="item-num">
-                                    <div class="num-box">
-                                    <a href="javascript:;">-</a>
+                            </div>
+                            <div class="item-price">{{item.productPrice}}元</div>
+                            <div class="item-num">
+                                <div class="num-box">
+                                    <a href="javascript:;" @click="updateCart(item,'-')">-</a>
                                     <span>{{item.quantity}}</span>
-                                    <a href="javascript:;">+</a>
-                                </div>
+                                    <a href="javascript:;" @click="updateCart(item,'+')">+</a>
+                                 </div>
                             </div>
                             <div class="item-total">{{item.productTotalPrice}}元</div>
-                            <div class="item-del"></div>
+                            <div class="item-del" @click="delProduct(item)"></div>    
                         </li>
                     </ul>
                 </div>
@@ -78,17 +79,53 @@
             this.getCartList()
         },
         methods:{
+            //获取购物车列表
             getCartList() {
                 this.axios.get('/carts').then((res) => {
                     this.renderData(res)
                 })
             },
+            //更新购物车数量 和 单选状态
+            updateCart(item, type) {
+                let quantity = item.quantity
+                let selected = item.productSelected
+                if(type == '-') {
+                    if(quantity == 1) {
+                        alert('商品至少保留一件！')
+                        return
+                    }
+                    --quantity
+                } else if(type == '+') {
+                    //商品数量大于库存
+                    if(quantity > item.productStock) {
+                        alert('购买的商品数量不能超过库存数量！')
+                        return
+                    }
+                    ++quantity
+                }else {
+                    selected = !item.productSelected
+                }
+                this.axios.put(`/carts/${item.productId}`, {
+                    quantity,
+                    selected
+                }).then((res) => {
+                    this.renderData(res)
+                })
+            },
+            //删除购物车商品 单个
+            delProduct(item) {
+                this.axios.delete(`/carts/${item.productId}`).then((res) => {
+                    this.renderData(res)
+                })
+            },
+            //控制全选功能
             toggleAll() {
                 let url = this.allChecked ? '/carts/unSelectAll' : '/carts/selectAll'
                 this.axios.put(url).then((res) => {
                     this.renderData(res)
                 })
             },
+            //公共赋值
             renderData(res) {
                 this.list = res.cartProductVoList || []
                 this.allChecked = res.selectedAll
@@ -183,6 +220,11 @@
                                     display:inline-block;
                                     width:50px;
                                     color:#333333;
+                                    transition: transform .3s;
+                                    &:hover{
+                                    // 放大 2 倍
+                                    transform: scale(2);
+                                    }
                                 }
                                 span{
                                     display:inline-block;
@@ -202,6 +244,11 @@
                             background:url('/imgs/icon-close.png') no-repeat center;
                             background-size:contain;
                             cursor:pointer;
+                            transition: transform .3s;
+                                &:hover{
+                                    // 放大 1.2 倍
+                                    transform: scale(1.2);
+                                }
                         }
                     }
                 }
