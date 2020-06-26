@@ -294,44 +294,7 @@ export default {
             //    //垂直居中
             //    align-items: center;
             @include flex();
-               .header-logo {
-                   display: inline-block;
-                   width: 55px;
-                   height: 55px;
-                   background-color: #ff6600;
-                   //通过before after 伪类  设置两张图片
-                   a {
-                       display: inline-block;
-                       width: 110px;
-                       height: 55px;
-                       &:before {
-                           //占位
-                           content: '';
-                            @include bgImg(55px, 55px, '/imgs/mi-logo.png', 55px);
-                        //    display: inline-block;
-                            //    width: 55px;
-                            //    height: 55px;
-                            //    background: url('/imgs/mi-logo.png') no-repeat center;
-                            //    background-size: 55px;
-                           transition: margin .2s;
-                       }
-                       &:after {
-                           //占位
-                           content: '';
-                           @include bgImg(55px, 55px, '/imgs/mi-home.png', 55px);
-                        //    display: inline-block;
-                        //    width: 55px;
-                        //    height: 55px;
-                        //    background: url('/imgs/mi-home.png') no-repeat center;
-                        //    background-size: 55px;
-                       }
-                       &:hover:before {
-                           margin-left: -55px;
-                           //掌握 css3 transition transform animation 语法
-                           transition: margin .2s;
-                       }
-                   }
-               }
+               
                .header-menu {
                    display: inline-block;
                    padding-left: 209px;
