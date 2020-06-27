@@ -38,6 +38,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
+import { Message } from 'element-ui'
 export default {
   name: 'login',
   data(){
@@ -69,7 +70,7 @@ export default {
               password:'admin1',
               email: 'admin1@qq.com'
           }).then(() => {
-             alert('注册成功！')
+             Message.success('注册成功！')
           })
       }
   }

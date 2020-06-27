@@ -76,6 +76,7 @@
     import ServiceBar from './../components/ServiceBar'
     import NavFooter from './../components/NavFooter'
     // import Modal from './../components/Modal'
+    import { Message } from 'element-ui' 
     export default {
         name:'cart',
         components:{
@@ -109,14 +110,14 @@
                 let selected = item.productSelected
                 if(type == '-') {
                     if(quantity == 1) {
-                        alert('商品至少保留一件！')
+                        Message.warning('商品至少保留一件！')
                         return
                     }
                     --quantity
                 } else if(type == '+') {
                     //商品数量大于库存
                     if(quantity > item.productStock) {
-                        alert('购买的商品数量不能超过库存数量！')
+                        Message.warning('购买的商品数量不能超过库存数量！')
                         return
                     }
                     ++quantity
@@ -133,11 +134,10 @@
             //删除购物车商品 单个
             delProduct(item) {
                 // this.showModal = true
-                    this.axios.delete(`/carts/${item.productId}`).then((res) => {
+                this.axios.delete(`/carts/${item.productId}`).then((res) => {
+                    this.$message.success('删除成功！')
                     this.renderData(res)
-                    }).catch(() => {
-                    this.showModal = true
-                    })
+                })
             },
             //控制全选功能
             toggleAll() {
@@ -158,7 +158,7 @@
                 //都没选中
                 let isCheck = this.list.every(item => !item.productSelected) 
                 if(isCheck) {
-                    alert('请选择一件商品！')
+                    Message.warning('请选择一件商品！')
                 } else {
                     this.$router.push('/order/confirm');
                 }
