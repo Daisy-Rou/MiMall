@@ -56,11 +56,22 @@ export default {
               username,
               password
           }).then((res) => {
-              this.$cookie.set('userId', res.id, {expires:'1M'})
+              this.$cookie.set('userId', res.id, {expires:'Session'})
               //to-do 保存用户名 存储
               // this.$store.dispatch('saveUserName', res.username)
               this.saveUserName(res.username)
-              this.$router.push('/index')
+              this.$router.push({
+                // query 是 get传参
+                // path: '/index',
+                // query: {
+                //   from: 'login'
+                // }
+                //params 传参
+                name: 'index',
+                params: {
+                  from: 'login'
+                }
+              })
           })
       },
       ...mapActions(['saveUserName']),

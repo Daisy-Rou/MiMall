@@ -12,6 +12,7 @@
                 <div class="topbar-user">
                     <a href="javascript:;" v-if="username">{{username}}</a>
                     <a href="javascript:;" v-if="!username" @click="login">登录</a>
+                    <a href="javascript:;" v-if="username" @click="logout">注销</a>
                     <a href="javascript:;" v-if="username">我的订单</a>
                     <!-- v-on 事件绑定 也可以简写 @click -->
                     <a href="javascript:;" class="my-cart" @click="goToCart">
@@ -209,6 +210,10 @@ export default {
     },
     mounted() {
         this.getProductList()
+        let params = this.$route.params
+        if(params && params.from == 'login') {
+            this.getCartCount()
+        }
     },
     methods: {
         //登录
@@ -230,6 +235,24 @@ export default {
                 }
             })
         },
+        //获取购物车数量
+        getCartCount() {
+            this.axios.get('/carts/products/sum').then((res=0) => {
+            //首次进入首页 会获取购车数量 默认为0
+            this.$store.dispatch('saveCartCount', res)
+            })
+        },
+        logout() {
+            this.axios.post('/user/logout').then(() => {
+                this.$message.success('注销成功！')
+                //设置用户登录即可过期
+                this.$cookie.set('userId','',{expires:'-1'})
+                //清空用户名
+                this.$store.dispatch('saveUserName', '')
+                //清空购物车数量
+                this.$store.dispatch('saveCartCount', '0')
+            })
+        },  
         goToCart() {
             //路由跳转 this.$router.push()  取参 router.query 或者 router.params
             this.$router.push('/cart')

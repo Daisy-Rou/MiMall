@@ -53,7 +53,7 @@ axios.interceptors.response.use(function(response) {
 //通过vue-axios 挂在 axios
 Vue.use(VueAxios, axios)
 Vue.use(VueCookie)
-Vue.use(Message)
+// Vue.use(Message)
 Vue.use(VueLazyLoad, {
   loading: '/imgs/loading-svg/loading-bars.svg'
 })
