@@ -98,6 +98,48 @@
       </div>
     </div>
     <modal
+      title="新增确认"
+      btnType="1"
+      :showModal="showEditModal"
+      @cancel="showEditModal=false"
+      @submit="submitAddress"
+    >
+      <template v-slot:body>
+        <div class="edit-wrap">
+            <div class="item">
+                <input type="text" class="input" placeholder="姓名">
+                <input type="text" class="input" placeholder="手机号">
+            </div>
+            <div class="item">
+                <select name="province">
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="安徽">安徽</option>
+                </select>
+                <select name="city">
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="安徽">合肥</option>
+                </select>
+                <select name="district">
+                    <option value="北京">昌平区</option>
+                    <option value="上海">海淀区</option>
+                    <option value="安徽">东城区</option>
+                    <option value="北京">西城区</option>
+                    <option value="上海">顺义区</option>
+                    <option value="安徽">房山区</option>
+                </select>
+            </div>
+            <div class="item">
+                <textarea name="street" placeholder="详细地址"></textarea>
+            </div>
+            <div class="item">
+                <input type="text" class="input" placeholder="邮编">
+            </div>
+        </div>
+      </template>
+    </modal>
+    <modal
       title="删除确认"
       btnType="1"
       :showModal="showDelModal"
@@ -118,7 +160,7 @@ export default{
     return {
         list: [], //收货地址列表
         cartList: [], //购物车中需要结算的商品列表
-        showEditModal:false,//是否显示新增或者编辑弹框
+        showEditModal:true,//是否显示新增或者编辑弹框
         cartTotalPrice: 0, //商品总金额
         count: 0 ,//商品结算数量
         checkedItem: {}, //选中的商品对象
