@@ -14,7 +14,7 @@
 .modal{
   @include position(fixed);
   z-index: 10;
-    transition: top .5s;
+  transition: top .5s;
   .mask{
     @include position(fixed);
     background-color: $colorI;

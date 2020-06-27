@@ -36,7 +36,8 @@
                                  </div>
                             </div>
                             <div class="item-total">{{item.productTotalPrice}}元</div>
-                            <div class="item-del" @click="delProduct(item)"></div>    
+                            <div class="item-del" @click="delProduct(item)" ></div>   
+                            
                         </li>
                     </ul>
                 </div>
@@ -54,25 +55,42 @@
         </div>
         <service-bar></service-bar>
         <nav-footer></nav-footer>
-    </div>
+         <!-- <modal 
+            title="友情提示" 
+            sureText="确定" 
+            cancelText="取消"
+            btnType="3" 
+            modalType="middle" 
+            :showModal="showModal"
+            @submit="del==true"
+            @cancel="showModal = false"> -->
+            <!-- 插槽 -->
+            <!-- <template v-slot:body>
+                <p>确定从购物车删除此商品？</p>
+            </template>
+        </modal> --> 
+     </div>   
 </template>
 <script>
     import OrderHeader from './../components/OrderHeader'
     import ServiceBar from './../components/ServiceBar'
     import NavFooter from './../components/NavFooter'
+    // import Modal from './../components/Modal'
     export default {
         name:'cart',
         components:{
             OrderHeader,
             NavFooter,
             ServiceBar
+            // Modal
         },
         data(){
             return {
                 list: [], //商品列表
                 allChecked: false, //是否全选
                 cartTotalPrice: 0, //商品总金额
-                checkedNum: 0 //选择的商品数量
+                checkedNum: 0, //选择的商品数量
+                showModal: false,
             }
         },
         mounted() {
@@ -114,9 +132,12 @@
             },
             //删除购物车商品 单个
             delProduct(item) {
-                this.axios.delete(`/carts/${item.productId}`).then((res) => {
+                // this.showModal = true
+                    this.axios.delete(`/carts/${item.productId}`).then((res) => {
                     this.renderData(res)
-                })
+                    }).catch(() => {
+                    this.showModal = true
+                    })
             },
             //控制全选功能
             toggleAll() {
@@ -134,7 +155,13 @@
             },
             // 购物车下单
             order(){
-                this.$router.push('/order/confirm');
+                //都没选中
+                let isCheck = this.list.every(item => !item.productSelected) 
+                if(isCheck) {
+                    alert('请选择一件商品！')
+                } else {
+                    this.$router.push('/order/confirm');
+                }
             }
         }
     }
