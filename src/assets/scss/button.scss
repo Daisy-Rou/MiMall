@@ -7,6 +7,11 @@
   color:$colorG;
   border:none;
   cursor: pointer;
+  transition: transform .3s;
+    &:hover{
+      // 放大 1.5 倍
+      transform: scale(1.2);
+    }
 }
 .btn-default{
   background-color: #B0B0B0;
