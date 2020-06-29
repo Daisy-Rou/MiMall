@@ -48,6 +48,11 @@ axios.interceptors.response.use(function(response) {
     Message.warning(res.msg)
     return Promise.reject(res)
   }
+  //拦截http状态码请求
+}, (err) => {
+  let res = err.response
+  Message.error(res.data.message)
+  return Promise.reject(err)
 })
 
 //通过vue-axios 挂在 axios
