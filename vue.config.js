@@ -13,5 +13,8 @@ module.exports = {
                 }
             }
         }
-    }
+    },
+    // publicPath: '/app',
+    // lintOnSave:false,
+    productionSourceMap: false
 }
